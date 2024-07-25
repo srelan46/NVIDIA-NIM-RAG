@@ -20,14 +20,14 @@ def load_documents(file):
     return docs
 
 def get_vector_embedding(docs):
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=700, chunk_overlap=50)
-    final_documents = text_splitter.split_documents(docs[:30])
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=150)
+    final_documents = text_splitter.split_documents(docs)
     embeddings = NVIDIAEmbeddings(model="nvidia/nv-embed-v1")
     vector_store = FAISS.from_documents(final_documents, embeddings)
     return vector_store
 
-st.set_page_config(page_title="Nvidia NIM Demo", layout="wide")
-st.title("Nvidia NIM Demo")
+st.set_page_config(page_title="AI-Powered Document Assistant with LLAMA3.1 and NVIDIA NIM")
+st.title("AI-Powered Document Assistant with LLAMA3.1 and NVIDIA NIM")
 
 with st.sidebar:
     nvidia_api_key = st.text_input("NVIDIA API KEY", key="NVIDIA_API_KEY", type="password")
